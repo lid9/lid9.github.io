@@ -1,0 +1,30 @@
+html {
+  height: 100%;
+  width: 100%;
+  background-color: #a8d8e0; 
+}
+
+img {
+  width: 100%;
+}
+
+.header {
+  font-size: 44px;
+  color: blue; 
+  font-family: 'Dancing Script', cursive;
+}
+
+#blah {
+  color: red; 
+}
+
+#diffId {
+  background-color: green; 
+}
+
+.flex-container {
+  display: flex; 
+  flex-direction: row; 
+  align-items: center;
+  flex-wrap: nowrap; 
+}
