@@ -1,0 +1,23 @@
+.flex-container {
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+
+.flex-item {
+  margin: 10px;
+}
+
+.topic-image {
+  /* width: 100px;
+  height: 100px; */
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.fried-rice {
+  width: 750px;
+}
+
+.default-image {
+  width: 20%;
+}
