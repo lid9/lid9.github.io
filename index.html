@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Recipes</h1>
+    <div class="flex-container">
+      <div class="flex-item">
+        <img
+          class="topic-image"
+          src="https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg"
+        />
+      </div>
+      <div class="flex-item">
+        <img
+          class="topic-image fried-rice"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4o2hOc9AC-1kziBlLQke6RPIPYcqkKVSm5Q&s"
+        />
+      </div>
+      <div class="flex-item">
+        <img
+          class="topic-image"
+          src="https://www.foodandwine.com/thmb/IuZPWAXBp4YaT9hn1YLHhuijT3k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/FAW-recipes-big-italian-salad-hero-83e6ea846722478f8feb1eea33158b00.jpg"
+        />
+      </div>
+    </div>
+    <h2>Pick a side!</h2>
+    <img
+      id="my-image"
+      class="default-image"
+      src="https://www.envelopments.com/uploads/papers/328/front_image/soft-gray_22in-sq-150dpi_gmund_v2.jpg"
+    />
+    <br />
+    <button type="button" onClick="changeImage('clear')">Clear</button>
+    <button type="button" onClick="changeImage('rice')">Rice!</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
