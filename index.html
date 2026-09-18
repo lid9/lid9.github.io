@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lydia Lei — Environmental Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #E8E3D6;
+    --bg-panel: #DDD6C4;
+    --ink: #22332E;
+    --ink-soft: #4C5E56;
+    --accent: #B5651D;
+    --water: #3E5C76;
+    --line: #C7BFA9;
+    --serif: 'Spectral', Georgia, 'Times New Roman', serif;
+    --sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161D1B;
+      --bg-panel: #1F2926;
+      --ink: #EAE6D9;
+      --ink-soft: #A9B3AC;
+      --accent: #D98A3D;
+      --water: #7C9CB8;
+      --line: #33403A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #161D1B;
+    --bg-panel: #1F2926;
+    --ink: #EAE6D9;
+    --ink-soft: #A9B3AC;
+    --accent: #D98A3D;
+    --water: #7C9CB8;
+    --line: #33403A;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--water); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--accent); }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { color: var(--ink-soft); font-size: 0.92rem; text-decoration: none; }
+  .nav-links a:hover { color: var(--accent); }
+  .theme-toggle {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- hero ---------- */
+  header.hero {
+    position: relative;
+    padding: 76px 0 64px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .contour-bg {
+    position: absolute;
+    right: -8%;
+    top: -10%;
+    width: 62%;
+    max-width: 560px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .contour-bg path { fill: none; stroke: var(--accent); stroke-width: 1; opacity: 0.5; }
+  .contour-bg path:nth-child(odd) { stroke: var(--water); opacity: 0.35; }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 620px; }
+  .eyebrow {
+    font-size: 0.85rem;
+    color: var(--water);
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    margin: 0 0 18px;
+    color: var(--ink);
+  }
+  .hero-role {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    max-width: 52ch;
+  }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.95rem; }
+  .hero-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .hero-links a:hover { border-color: var(--accent); }
+
+  /* ---------- sections ---------- */
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0 0 22px;
+    color: var(--ink);
+  }
+
+  .about p { max-width: 62ch; color: var(--ink-soft); margin: 0 0 14px; }
+  .about p:last-child { margin-bottom: 0; }
+  .about strong { color: var(--ink); font-weight: 600; }
+
+  /* skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px 36px;
+  }
+  .skill-group h3 {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--water);
+    margin: 0 0 10px;
+    font-weight: 600;
+    text-transform: none;
+  }
+  .skill-group ul { list-style: none; margin: 0; padding: 0; }
+  .skill-group li {
+    color: var(--ink);
+    font-size: 0.95rem;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .skill-group li:last-child { border-bottom: none; }
+
+  /* projects — field-log style, not cards */
+  .project {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px 28px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .project:first-child { padding-top: 0; }
+  .project:last-child { border-bottom: none; padding-bottom: 0; }
+  .project-status {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding-top: 3px;
+  }
+  .project-status.status-progress { color: var(--accent); }
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .project-desc { color: var(--ink-soft); font-size: 0.94rem; max-width: 58ch; margin: 0; }
+  .project-tags { margin-top: 10px; font-size: 0.82rem; color: var(--water); }
+
+  @media (max-width: 560px) {
+    .project { grid-template-columns: 1fr; }
+    .project-status { padding-top: 0; }
+  }
+
+  /* contact / footer */
+  footer {
+    padding: 48px 0 60px;
+  }
+  footer p { color: var(--ink-soft); max-width: 54ch; margin: 0 0 20px; }
+  .contact-list { display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 0.98rem; }
+  .contact-list a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .contact-list a:hover { border-color: var(--accent); }
+  .footer-note { margin-top: 40px; font-size: 0.8rem; color: var(--ink-soft); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="nav-name" href="#top">Lydia Lei</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" type="button">Dark mode</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="contour-bg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M20,180 C80,120 140,240 200,160 C260,90 320,200 380,140" />
+    <path d="M10,220 C90,160 150,270 210,200 C270,130 330,230 390,180" />
+    <path d="M0,260 C100,210 160,300 220,240 C280,170 340,270 400,220" />
+    <path d="M30,140 C100,90 160,190 220,120 C280,60 330,150 390,100" />
+    <path d="M-10,300 C90,250 170,330 230,280 C290,220 350,300 410,260" />
+  </svg>
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow">Environmental data science · GIS · Computation</p>
+      <h1>Lydia Lei</h1>
+      <p class="hero-role">
+        I work at the edge of environmental science and computation — building models,
+        maps, and pipelines that turn raw geospatial and ecological data into
+        something people can actually see and use. Currently studying Computational
+        Cognitive Science and Environmental Data Science at UC Davis.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:lslei@ucdavis.edu">lslei@ucdavis.edu</a>
+        <a href="https://github.com/lid9" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/lydia-lei-671bbb242/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <div class="about">
+      <p>
+        I'm a student researcher interested in how computational methods — remote sensing,
+        machine learning, spatial analysis — can help answer real environmental questions,
+        from wetland change to urban tree canopy loss. I currently work in the
+        <strong>SES Lab at UC Davis</strong>, and I'm building a body of independent GIS and
+        data science projects alongside that work.
+      </p>
+      <p>
+        My background spans <strong>R</strong>, <strong>Python</strong>, and <strong>GIS</strong>
+        (QGIS / ArcGIS), and I'm expanding into raster analysis, image segmentation and
+        classification, and applied deep learning for environmental monitoring.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Technical toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Languages &amp; analysis</h3>
+        <ul>
+          <li>Python (pandas, numpy, scikit-learn)</li>
+          <li>R / RStudio</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Geospatial</h3>
+        <ul>
+          <li>QGIS / ArcGIS</li>
+          <li>Raster &amp; vector analysis</li>
+          <li>Remote sensing (satellite imagery, LiDAR)</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Currently learning</h3>
+        <ul>
+          <li>Image segmentation &amp; classification</li>
+          <li>SAR / radar imagery</li>
+          <li>Open-source web mapping stacks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+
+    <div class="project">
+      <div class="project-status status-progress">In progress</div>
+      <div>
+        <h3 class="project-title">Land Use &amp; Tree Canopy Raster Analysis</h3>
+        <p class="project-desc">
+          Using raster GIS tools and a deep learning model to extract tree canopy
+          from public satellite imagery, and comparing coverage against land use
+          classifications.
+        </p>
+        <div class="project-tags">Python · raster analysis · deep learning · remote sensing</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-status">Planned</div>
+      <div>
+        <h3 class="project-title">Script Optimization Case Study</h3>
+        <p class="project-desc">
+          A walkthrough of a slow data-processing script and how I diagnosed and fixed
+          the bottleneck — the kind of practical performance problem-solving that
+          doesn't usually make it into a portfolio.
+        </p>
+        <div class="project-tags">Python · pandas · performance</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-status">Planned</div>
+      <div>
+        <h3 class="project-title">Baylands Wetland Segmentation &amp; Classification</h3>
+        <p class="project-desc">
+          Comparing segmentation and classification approaches — rule-based versus
+          ML-based — for remapping Bay Area baylands wetlands.
+        </p>
+        <div class="project-tags">GIS · classification · wetlands</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-status">Planned</div>
+      <div>
+        <h3 class="project-title">Baylands Habitat &amp; Census Equity Map</h3>
+        <p class="project-desc">
+          Pairing baylands habitat data with census data to show how access to Bay Trail
+          entry points varies across communities.
+        </p>
+        <div class="project-tags">GIS · census data · equity analysis</div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-status">Planned</div>
+      <div>
+        <h3 class="project-title">Bay Area Restoration Project Timeline Map</h3>
+        <p class="project-desc">
+          Mapping current and past restoration projects across the Bay Area using the
+          EcoAtlas project tracker, with a timeline dimension to show change over time.
+        </p>
+        <div class="project-tags">GIS · EcoAtlas · web mapping</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <p>
+      I'm looking for summer 2027 research opportunities in environmental data science
+      and always glad to talk about GIS, remote sensing, or environmental modeling.
+    </p>
+    <div class="contact-list">
+      <a href="mailto:lslei@ucdavis.edu">lslei@ucdavis.edu</a>
+      <a href="https://github.com/lid9" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/lydia-lei-671bbb242/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="footer-note">Built while in progress — new projects added as they're finished.</p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var toggle = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    function apply(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        toggle.textContent = 'Light mode';
+      } else {
+        root.setAttribute('data-theme', 'light');
+        toggle.textContent = 'Dark mode';
+      }
+    }
+    try {
+      var saved = localStorage.getItem('portfolio-theme');
+      if (saved) apply(saved);
+      else {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        toggle.textContent = prefersDark ? 'Light mode' : 'Dark mode';
+      }
+    } catch (e) {}
+
+    toggle.addEventListener('click', function() {
+      var current = root.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      apply(next);
+      try { localStorage.setItem('portfolio-theme', next); } catch (e) {}
+    });
+  })();
+</script>
+
+</body>
+</html>
